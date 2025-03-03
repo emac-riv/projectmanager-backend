@@ -170,3 +170,4 @@ C:\Users\esmer\source\repos\ProjectManager\ProjectManager\obj\Debug\net8.0\Proje
 C:\Users\esmer\source\repos\ProjectManager\ProjectManager\obj\Debug\net8.0\ProjectManager.genruntimeconfig.cache
 C:\Users\esmer\source\repos\ProjectManager\ProjectManager\obj\Debug\net8.0\ref\ProjectManager.dll
 C:\Users\esmer\source\repos\ProjectManager\ProjectManager\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\esmer\source\repos\ProjectManager\ProjectManager\obj\Debug\net8.0\ProjectManager.sourcelink.json

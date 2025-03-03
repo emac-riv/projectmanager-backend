@@ -12,8 +12,8 @@ using ProjectManager.Data;
 namespace ProjectManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250223212037_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250303050523_UpdateProjectAndCustomer")]
+    partial class UpdateProjectAndCustomer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,27 @@ namespace ProjectManager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProjectManager.Models.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("ProjectManager.Models.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -32,6 +53,9 @@ namespace ProjectManager.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -52,7 +76,20 @@ namespace ProjectManager.Migrations
 
                     b.HasKey("ProjectId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("ProjectManager.Models.Project", b =>
+                {
+                    b.HasOne("ProjectManager.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }
